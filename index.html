@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>File Upload</title>
+</head>
+
+<body>
+    <h2>Upload Image</h2>
+    <form id="uploadForm" enctype="multipart/form-data" action="/api/upload" method="post">
+        <input type="file" id="imageInput" name="image" required>
+        <input type="text" id="captionInput" name="caption" placeholder="Enter caption">
+        <button type="submit">Upload Image</button>
+    </form>
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Get the file from the input
+            const fileInput = document.getElementById('imageInput');
+            const file = fileInput.files[0];
+
+            // Get the caption
+            const captionInput = document.getElementById('captionInput');
+            const caption = captionInput.value;
+
+            // Prepare the XMLHttpRequest
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://localhost:3000/api/upload", true);
+
+            // Set the request headers
+            xhr.setRequestHeader("Content-Type", "image/png");
+            xhr.setRequestHeader("Content-Disposition", `attachment; filename="${file.name}"`);
+            xhr.setRequestHeader("X-Image-Caption", caption);
+
+            // Send the file data
+            xhr.send(file);
+
+            // Optional: Handle response from the server
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    console.log("Upload successful");
+                } else {
+                    console.log("Upload failed", xhr.responseText);
+                }
+            };
+        });
+
+    </script>
+
+
+</body>
+
+</html>
