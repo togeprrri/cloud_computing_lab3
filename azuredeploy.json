@@ -2,45 +2,45 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "sites_lab3cc_name": {
-            "defaultValue": "lab3cc",
-            "type": "String"
+        "sites_lab5cc_name": {
+            "defaultValue": "lab5cc",
+            "type": "string"
         },
         "namespaces_cclab4_name": {
             "defaultValue": "cclab4",
-            "type": "String"
+            "type": "string"
         },
-        "serverfarms_ASP_lab3_8f86_name": {
-            "defaultValue": "ASP-lab3-8f86",
-            "type": "String"
+        "serverfarms_ASP_lab5_8f86_name": {
+            "defaultValue": "ASP-lab5-8f86",
+            "type": "string"
         },
         "storageAccounts_testtmpsa_name": {
             "defaultValue": "testtmpsa",
-            "type": "String"
+            "type": "string"
         },
-        "virtualNetworks_lab3ccVnet_name": {
-            "defaultValue": "lab3ccVnet",
-            "type": "String"
+        "virtualNetworks_lab5ccVnet_name": {
+            "defaultValue": "lab5ccVnet",
+            "type": "string"
         },
-        "databaseAccounts_lab3cc_server_name": {
-            "defaultValue": "lab3cc-server",
-            "type": "String"
+        "databaseAccounts_lab5cc_server_name": {
+            "defaultValue": "lab5cc-server",
+            "type": "string"
         },
-        "privateEndpoints_lab3ccDbEndpoint_name": {
-            "defaultValue": "lab3ccDbEndpoint",
-            "type": "String"
+        "privateEndpoints_lab5ccDbEndpoint_name": {
+            "defaultValue": "lab5ccDbEndpoint",
+            "type": "string"
         },
-        "storageAccounts_lab3storageaccount1_name": {
-            "defaultValue": "lab3storageaccount1",
-            "type": "String"
+        "storageAccounts_lab5storageaccount1_name": {
+            "defaultValue": "lab5storageaccount1",
+            "type": "string"
         },
         "privateDnsZones_privatelink_mongo_cosmos_azure_com_name": {
             "defaultValue": "privatelink.mongo.cosmos.azure.com",
-            "type": "String"
+            "type": "string"
         },
         "privateDnsZones_privatelink_redis_cache_windows_net_name": {
             "defaultValue": "privatelink.redis.cache.windows.net",
-            "type": "String"
+            "type": "string"
         }
     },
     "variables": {},
@@ -48,7 +48,7 @@
         {
             "type": "Microsoft.DocumentDB/databaseAccounts",
             "apiVersion": "2023-11-15",
-            "name": "[parameters('databaseAccounts_lab3cc_server_name')]",
+            "name": "[parameters('databaseAccounts_lab5cc_server_name')]",
             "location": "Poland Central",
             "tags": {
                 "hidden-cosmos-mmspecial": "",
@@ -151,7 +151,7 @@
         {
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2023-09-01",
-            "name": "[parameters('virtualNetworks_lab3ccVnet_name')]",
+            "name": "[parameters('virtualNetworks_lab5ccVnet_name')]",
             "location": "polandcentral",
             "properties": {
                 "addressSpace": {
@@ -161,8 +161,8 @@
                 },
                 "subnets": [
                     {
-                        "name": "lab3ccSubnet",
-                        "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_lab3ccVnet_name'), 'lab3ccSubnet')]",
+                        "name": "lab5ccSubnet",
+                        "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_lab5ccVnet_name'), 'lab5ccSubnet')]",
                         "properties": {
                             "addressPrefix": "10.0.0.0/24",
                             "serviceEndpoints": [],
@@ -173,15 +173,15 @@
                         "type": "Microsoft.Network/virtualNetworks/subnets"
                     },
                     {
-                        "name": "lab3ccAppSubnet",
-                        "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_lab3ccVnet_name'), 'lab3ccAppSubnet')]",
+                        "name": "lab5ccAppSubnet",
+                        "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_lab5ccVnet_name'), 'lab5ccAppSubnet')]",
                         "properties": {
                             "addressPrefix": "10.0.1.0/24",
                             "serviceEndpoints": [],
                             "delegations": [
                                 {
                                     "name": "dlg-appServices",
-                                    "id": "[concat(resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_lab3ccVnet_name'), 'lab3ccAppSubnet'), '/delegations/dlg-appServices')]",
+                                    "id": "[concat(resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_lab5ccVnet_name'), 'lab5ccAppSubnet'), '/delegations/dlg-appServices')]",
                                     "properties": {
                                         "serviceName": "Microsoft.Web/serverfarms"
                                     },
@@ -219,7 +219,7 @@
         {
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2023-01-01",
-            "name": "[parameters('storageAccounts_lab3storageaccount1_name')]",
+            "name": "[parameters('storageAccounts_lab5storageaccount1_name')]",
             "location": "polandcentral",
             "sku": {
                 "name": "Standard_LRS",
@@ -303,7 +303,7 @@
         {
             "type": "Microsoft.Web/serverfarms",
             "apiVersion": "2023-01-01",
-            "name": "[parameters('serverfarms_ASP_lab3_8f86_name')]",
+            "name": "[parameters('serverfarms_ASP_lab5_8f86_name')]",
             "location": "Poland Central",
             "sku": {
                 "name": "B1",
@@ -330,22 +330,22 @@
         {
             "type": "Microsoft.DocumentDB/databaseAccounts/mongodbDatabases",
             "apiVersion": "2023-11-15",
-            "name": "[concat(parameters('databaseAccounts_lab3cc_server_name'), '/lab3cc-database')]",
+            "name": "[concat(parameters('databaseAccounts_lab5cc_server_name'), '/lab5cc-database')]",
             "dependsOn": [
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_lab3cc_server_name'))]"
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_lab5cc_server_name'))]"
             ],
             "properties": {
                 "resource": {
-                    "id": "lab3cc-database"
+                    "id": "lab5cc-database"
                 }
             }
         },
         {
             "type": "Microsoft.DocumentDB/databaseAccounts/mongodbDatabases",
             "apiVersion": "2023-11-15",
-            "name": "[concat(parameters('databaseAccounts_lab3cc_server_name'), '/tutorial')]",
+            "name": "[concat(parameters('databaseAccounts_lab5cc_server_name'), '/tutorial')]",
             "dependsOn": [
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_lab3cc_server_name'))]"
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_lab5cc_server_name'))]"
             ],
             "properties": {
                 "resource": {
@@ -356,13 +356,13 @@
         {
             "type": "Microsoft.Network/privateDnsZones/A",
             "apiVersion": "2018-09-01",
-            "name": "[concat(parameters('privateDnsZones_privatelink_mongo_cosmos_azure_com_name'), '/lab3cc-server')]",
+            "name": "[concat(parameters('privateDnsZones_privatelink_mongo_cosmos_azure_com_name'), '/lab5cc-server')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/privateDnsZones', parameters('privateDnsZones_privatelink_mongo_cosmos_azure_com_name'))]"
             ],
             "properties": {
                 "metadata": {
-                    "creator": "created by private endpoint lab3ccDbEndpoint with resource guid c02d7e0e-562d-469f-b78f-eed314751d95"
+                    "creator": "created by private endpoint lab5ccDbEndpoint with resource guid c02d7e0e-562d-469f-b78f-eed314751d95"
                 },
                 "ttl": 10,
                 "aRecords": [
@@ -375,13 +375,13 @@
         {
             "type": "Microsoft.Network/privateDnsZones/A",
             "apiVersion": "2018-09-01",
-            "name": "[concat(parameters('privateDnsZones_privatelink_mongo_cosmos_azure_com_name'), '/lab3cc-server-polandcentral')]",
+            "name": "[concat(parameters('privateDnsZones_privatelink_mongo_cosmos_azure_com_name'), '/lab5cc-server-polandcentral')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/privateDnsZones', parameters('privateDnsZones_privatelink_mongo_cosmos_azure_com_name'))]"
             ],
             "properties": {
                 "metadata": {
-                    "creator": "created by private endpoint lab3ccDbEndpoint with resource guid c02d7e0e-562d-469f-b78f-eed314751d95"
+                    "creator": "created by private endpoint lab5ccDbEndpoint with resource guid c02d7e0e-562d-469f-b78f-eed314751d95"
                 },
                 "ttl": 10,
                 "aRecords": [
@@ -434,9 +434,9 @@
         {
             "type": "Microsoft.Network/virtualNetworks/subnets",
             "apiVersion": "2023-09-01",
-            "name": "[concat(parameters('virtualNetworks_lab3ccVnet_name'), '/lab3ccAppSubnet')]",
+            "name": "[concat(parameters('virtualNetworks_lab5ccVnet_name'), '/lab5ccAppSubnet')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_lab3ccVnet_name'))]"
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_lab5ccVnet_name'))]"
             ],
             "properties": {
                 "addressPrefix": "10.0.1.0/24",
@@ -444,7 +444,7 @@
                 "delegations": [
                     {
                         "name": "dlg-appServices",
-                        "id": "[concat(resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_lab3ccVnet_name'), 'lab3ccAppSubnet'), '/delegations/dlg-appServices')]",
+                        "id": "[concat(resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_lab5ccVnet_name'), 'lab5ccAppSubnet'), '/delegations/dlg-appServices')]",
                         "properties": {
                             "serviceName": "Microsoft.Web/serverfarms"
                         },
@@ -458,9 +458,9 @@
         {
             "type": "Microsoft.Network/virtualNetworks/subnets",
             "apiVersion": "2023-09-01",
-            "name": "[concat(parameters('virtualNetworks_lab3ccVnet_name'), '/lab3ccSubnet')]",
+            "name": "[concat(parameters('virtualNetworks_lab5ccVnet_name'), '/lab5ccSubnet')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_lab3ccVnet_name'))]"
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_lab5ccVnet_name'))]"
             ],
             "properties": {
                 "addressPrefix": "10.0.0.0/24",
@@ -505,7 +505,7 @@
         {
             "type": "Microsoft.ServiceBus/namespaces/queues",
             "apiVersion": "2022-10-01-preview",
-            "name": "[concat(parameters('namespaces_cclab4_name'), '/quickstartlab3iraivanishak')]",
+            "name": "[concat(parameters('namespaces_cclab4_name'), '/quickstartlab5iraivanishak')]",
             "location": "polandcentral",
             "dependsOn": [
                 "[resourceId('Microsoft.ServiceBus/namespaces', parameters('namespaces_cclab4_name'))]"
@@ -530,9 +530,9 @@
         {
             "type": "Microsoft.Storage/storageAccounts/blobServices",
             "apiVersion": "2023-01-01",
-            "name": "[concat(parameters('storageAccounts_lab3storageaccount1_name'), '/default')]",
+            "name": "[concat(parameters('storageAccounts_lab5storageaccount1_name'), '/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_lab3storageaccount1_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_lab5storageaccount1_name'))]"
             ],
             "sku": {
                 "name": "Standard_LRS",
@@ -582,9 +582,9 @@
         {
             "type": "Microsoft.Storage/storageAccounts/fileServices",
             "apiVersion": "2023-01-01",
-            "name": "[concat(parameters('storageAccounts_lab3storageaccount1_name'), '/default')]",
+            "name": "[concat(parameters('storageAccounts_lab5storageaccount1_name'), '/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_lab3storageaccount1_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_lab5storageaccount1_name'))]"
             ],
             "sku": {
                 "name": "Standard_LRS",
@@ -630,9 +630,9 @@
         {
             "type": "Microsoft.Storage/storageAccounts/queueServices",
             "apiVersion": "2023-01-01",
-            "name": "[concat(parameters('storageAccounts_lab3storageaccount1_name'), '/default')]",
+            "name": "[concat(parameters('storageAccounts_lab5storageaccount1_name'), '/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_lab3storageaccount1_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_lab5storageaccount1_name'))]"
             ],
             "properties": {
                 "cors": {
@@ -656,9 +656,9 @@
         {
             "type": "Microsoft.Storage/storageAccounts/tableServices",
             "apiVersion": "2023-01-01",
-            "name": "[concat(parameters('storageAccounts_lab3storageaccount1_name'), '/default')]",
+            "name": "[concat(parameters('storageAccounts_lab5storageaccount1_name'), '/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_lab3storageaccount1_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_lab5storageaccount1_name'))]"
             ],
             "properties": {
                 "cors": {
@@ -682,10 +682,10 @@
         {
             "type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
             "apiVersion": "2023-01-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/ftp')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/ftp')]",
             "location": "Poland Central",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ],
             "properties": {
                 "allow": true
@@ -694,10 +694,10 @@
         {
             "type": "Microsoft.Web/sites/basicPublishingCredentialsPolicies",
             "apiVersion": "2023-01-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/scm')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/scm')]",
             "location": "Poland Central",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ],
             "properties": {
                 "allow": true
@@ -706,10 +706,10 @@
         {
             "type": "Microsoft.Web/sites/config",
             "apiVersion": "2023-01-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/web')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/web')]",
             "location": "Poland Central",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ],
             "properties": {
                 "numberOfWorkers": 1,
@@ -733,7 +733,7 @@
                 "acrUseManagedIdentityCreds": false,
                 "logsDirectorySizeLimit": 35,
                 "detailedErrorLoggingEnabled": false,
-                "publishingUsername": "$lab3cc",
+                "publishingUsername": "$lab5cc",
                 "scmType": "ExternalGit",
                 "use32BitWorkerProcess": true,
                 "webSocketsEnabled": false,
@@ -751,7 +751,7 @@
                     "rampUpRules": []
                 },
                 "autoHealEnabled": false,
-                "vnetName": "c925aa56-7754-48bf-84fb-f8e7eab6f82f_lab3ccAppSubnet",
+                "vnetName": "c925aa56-7754-48bf-84fb-f8e7eab6f82f_lab5ccAppSubnet",
                 "vnetRouteAllEnabled": true,
                 "vnetPrivatePortsCount": 0,
                 "localMySqlEnabled": false,
@@ -788,10 +788,10 @@
         {
             "type": "Microsoft.Web/sites/deployments",
             "apiVersion": "2023-01-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/66b43bc0ead4d2b403c471769086428057f95835')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/66b43bc0ead4d2b403c471769086428057f95835')]",
             "location": "Poland Central",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ],
             "properties": {
                 "status": 4,
@@ -807,191 +807,191 @@
         {
             "type": "Microsoft.Web/sites/hostNameBindings",
             "apiVersion": "2023-01-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/', parameters('sites_lab3cc_name'), '.azurewebsites.net')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/', parameters('sites_lab5cc_name'), '.azurewebsites.net')]",
             "location": "Poland Central",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ],
             "properties": {
-                "siteName": "lab3cc",
+                "siteName": "lab5cc",
                 "hostNameType": "Verified"
             }
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/2024-03-20T15_57_19_8680955')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/2024-03-20T15_57_19_8680955')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/2024-03-20T16_57_19_9194231')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/2024-03-20T16_57_19_9194231')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/2024-03-20T17_57_19_9657442')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/2024-03-20T17_57_19_9657442')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/2024-03-20T18_57_20_0131271')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/2024-03-20T18_57_20_0131271')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/2024-03-20T19_57_20_0363147')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/2024-03-20T19_57_20_0363147')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/2024-03-20T20_57_20_0967627')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/2024-03-20T20_57_20_0967627')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/2024-03-20T21_57_20_1446264')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/2024-03-20T21_57_20_1446264')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/2024-03-20T22_57_20_1992567')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/2024-03-20T22_57_20_1992567')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/2024-03-20T23_57_20_2014727')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/2024-03-20T23_57_20_2014727')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/2024-03-21T00_57_20_2467548')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/2024-03-21T00_57_20_2467548')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/2024-03-21T01_57_20_2967844')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/2024-03-21T01_57_20_2967844')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/2024-03-21T02_57_20_3752831')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/2024-03-21T02_57_20_3752831')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/2024-03-21T03_57_20_4053592')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/2024-03-21T03_57_20_4053592')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/2024-03-21T04_57_20_4519795')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/2024-03-21T04_57_20_4519795')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/2024-03-21T05_57_20_4829289')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/2024-03-21T05_57_20_4829289')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/2024-03-21T06_57_20_5431079')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/2024-03-21T06_57_20_5431079')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/2024-03-21T07_57_20_5636009')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/2024-03-21T07_57_20_5636009')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/2024-03-21T08_57_20_6175519')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/2024-03-21T08_57_20_6175519')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/2024-03-21T09_57_20_6546829')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/2024-03-21T09_57_20_6546829')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/2024-03-21T10_57_20_7166533')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/2024-03-21T10_57_20_7166533')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ]
         },
         {
             "type": "Microsoft.Web/sites/snapshots",
             "apiVersion": "2015-08-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/2024-03-21T11_57_20_7498799')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/2024-03-21T11_57_20_7498799')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]"
             ]
         },
         {
             "type": "Microsoft.DocumentDB/databaseAccounts/mongodbDatabases/collections",
             "apiVersion": "2023-11-15",
-            "name": "[concat(parameters('databaseAccounts_lab3cc_server_name'), '/tutorial/metadata')]",
+            "name": "[concat(parameters('databaseAccounts_lab5cc_server_name'), '/tutorial/metadata')]",
             "dependsOn": [
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts/mongodbDatabases', parameters('databaseAccounts_lab3cc_server_name'), 'tutorial')]",
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_lab3cc_server_name'))]"
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts/mongodbDatabases', parameters('databaseAccounts_lab5cc_server_name'), 'tutorial')]",
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_lab5cc_server_name'))]"
             ],
             "properties": {
                 "resource": {
@@ -1011,16 +1011,16 @@
         {
             "type": "Microsoft.DocumentDB/databaseAccounts/privateEndpointConnections",
             "apiVersion": "2023-11-15",
-            "name": "[concat(parameters('databaseAccounts_lab3cc_server_name'), '/lab3ccDbEndpoint')]",
+            "name": "[concat(parameters('databaseAccounts_lab5cc_server_name'), '/lab5ccDbEndpoint')]",
             "dependsOn": [
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_lab3cc_server_name'))]",
-                "[resourceId('Microsoft.Network/privateEndpoints', parameters('privateEndpoints_lab3ccDbEndpoint_name'))]"
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_lab5cc_server_name'))]",
+                "[resourceId('Microsoft.Network/privateEndpoints', parameters('privateEndpoints_lab5ccDbEndpoint_name'))]"
             ],
             "properties": {
                 "provisioningState": "Succeeded",
                 "groupId": "MongoDB",
                 "privateEndpoint": {
-                    "id": "[resourceId('Microsoft.Network/privateEndpoints', parameters('privateEndpoints_lab3ccDbEndpoint_name'))]"
+                    "id": "[resourceId('Microsoft.Network/privateEndpoints', parameters('privateEndpoints_lab5ccDbEndpoint_name'))]"
                 },
                 "privateLinkServiceConnectionState": {
                     "status": "Approved"
@@ -1034,12 +1034,12 @@
             "location": "global",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/privateDnsZones', parameters('privateDnsZones_privatelink_mongo_cosmos_azure_com_name'))]",
-                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_lab3ccVnet_name'))]"
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_lab5ccVnet_name'))]"
             ],
             "properties": {
                 "registrationEnabled": false,
                 "virtualNetwork": {
-                    "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_lab3ccVnet_name'))]"
+                    "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_lab5ccVnet_name'))]"
                 }
             }
         },
@@ -1050,31 +1050,31 @@
             "location": "global",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/privateDnsZones', parameters('privateDnsZones_privatelink_redis_cache_windows_net_name'))]",
-                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_lab3ccVnet_name'))]"
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_lab5ccVnet_name'))]"
             ],
             "properties": {
                 "registrationEnabled": false,
                 "virtualNetwork": {
-                    "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_lab3ccVnet_name'))]"
+                    "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_lab5ccVnet_name'))]"
                 }
             }
         },
         {
             "type": "Microsoft.Network/privateEndpoints",
             "apiVersion": "2023-09-01",
-            "name": "[parameters('privateEndpoints_lab3ccDbEndpoint_name')]",
+            "name": "[parameters('privateEndpoints_lab5ccDbEndpoint_name')]",
             "location": "polandcentral",
             "dependsOn": [
-                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_lab3cc_server_name'))]",
-                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_lab3ccVnet_name'), 'lab3ccSubnet')]"
+                "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_lab5cc_server_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_lab5ccVnet_name'), 'lab5ccSubnet')]"
             ],
             "properties": {
                 "privateLinkServiceConnections": [
                     {
-                        "name": "[parameters('privateEndpoints_lab3ccDbEndpoint_name')]",
-                        "id": "[concat(resourceId('Microsoft.Network/privateEndpoints', parameters('privateEndpoints_lab3ccDbEndpoint_name')), concat('/privateLinkServiceConnections/', parameters('privateEndpoints_lab3ccDbEndpoint_name')))]",
+                        "name": "[parameters('privateEndpoints_lab5ccDbEndpoint_name')]",
+                        "id": "[concat(resourceId('Microsoft.Network/privateEndpoints', parameters('privateEndpoints_lab5ccDbEndpoint_name')), concat('/privateLinkServiceConnections/', parameters('privateEndpoints_lab5ccDbEndpoint_name')))]",
                         "properties": {
-                            "privateLinkServiceId": "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_lab3cc_server_name'))]",
+                            "privateLinkServiceId": "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('databaseAccounts_lab5cc_server_name'))]",
                             "groupIds": [
                                 "MongoDB"
                             ],
@@ -1087,7 +1087,7 @@
                 ],
                 "manualPrivateLinkServiceConnections": [],
                 "subnet": {
-                    "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_lab3ccVnet_name'), 'lab3ccSubnet')]"
+                    "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_lab5ccVnet_name'), 'lab5ccSubnet')]"
                 },
                 "ipConfigurations": [],
                 "customDnsConfigs": []
@@ -1096,9 +1096,9 @@
         {
             "type": "Microsoft.Network/privateEndpoints/privateDnsZoneGroups",
             "apiVersion": "2023-09-01",
-            "name": "[concat(parameters('privateEndpoints_lab3ccDbEndpoint_name'), '/default')]",
+            "name": "[concat(parameters('privateEndpoints_lab5ccDbEndpoint_name'), '/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/privateEndpoints', parameters('privateEndpoints_lab3ccDbEndpoint_name'))]",
+                "[resourceId('Microsoft.Network/privateEndpoints', parameters('privateEndpoints_lab5ccDbEndpoint_name'))]",
                 "[resourceId('Microsoft.Network/privateDnsZones', parameters('privateDnsZones_privatelink_mongo_cosmos_azure_com_name'))]"
             ],
             "properties": {
@@ -1115,10 +1115,10 @@
         {
             "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
             "apiVersion": "2023-01-01",
-            "name": "[concat(parameters('storageAccounts_lab3storageaccount1_name'), '/default/blobby')]",
+            "name": "[concat(parameters('storageAccounts_lab5storageaccount1_name'), '/default/blobby')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_lab3storageaccount1_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_lab3storageaccount1_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_lab5storageaccount1_name'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_lab5storageaccount1_name'))]"
             ],
             "properties": {
                 "immutableStorageWithVersioning": {
@@ -1149,10 +1149,10 @@
         {
             "type": "Microsoft.Storage/storageAccounts/queueServices/queues",
             "apiVersion": "2023-01-01",
-            "name": "[concat(parameters('storageAccounts_lab3storageaccount1_name'), '/default/quickstartlab3iraivanishak')]",
+            "name": "[concat(parameters('storageAccounts_lab5storageaccount1_name'), '/default/quickstartlab5iraivanishak')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts/queueServices', parameters('storageAccounts_lab3storageaccount1_name'), 'default')]",
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_lab3storageaccount1_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts/queueServices', parameters('storageAccounts_lab5storageaccount1_name'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_lab5storageaccount1_name'))]"
             ],
             "properties": {
                 "metadata": {}
@@ -1161,28 +1161,28 @@
         {
             "type": "Microsoft.Web/sites",
             "apiVersion": "2023-01-01",
-            "name": "[parameters('sites_lab3cc_name')]",
+            "name": "[parameters('sites_lab5cc_name')]",
             "location": "Poland Central",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ASP_lab3_8f86_name'))]",
-                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_lab3ccVnet_name'), 'lab3ccAppSubnet')]"
+                "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ASP_lab5_8f86_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_lab5ccVnet_name'), 'lab5ccAppSubnet')]"
             ],
             "kind": "app,linux",
             "properties": {
                 "enabled": true,
                 "hostNameSslStates": [
                     {
-                        "name": "[concat(parameters('sites_lab3cc_name'), '.azurewebsites.net')]",
+                        "name": "[concat(parameters('sites_lab5cc_name'), '.azurewebsites.net')]",
                         "sslState": "Disabled",
                         "hostType": "Standard"
                     },
                     {
-                        "name": "[concat(parameters('sites_lab3cc_name'), '.scm.azurewebsites.net')]",
+                        "name": "[concat(parameters('sites_lab5cc_name'), '.scm.azurewebsites.net')]",
                         "sslState": "Disabled",
                         "hostType": "Repository"
                     }
                 ],
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ASP_lab3_8f86_name'))]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarms_ASP_lab5_8f86_name'))]",
                 "reserved": true,
                 "isXenon": false,
                 "hyperV": false,
@@ -1209,21 +1209,21 @@
                 "httpsOnly": false,
                 "redundancyMode": "None",
                 "storageAccountRequired": false,
-                "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_lab3ccVnet_name'), concat(parameters('sites_lab3cc_name'), 'AppSubnet'))]",
+                "virtualNetworkSubnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_lab5ccVnet_name'), concat(parameters('sites_lab5cc_name'), 'AppSubnet'))]",
                 "keyVaultReferenceIdentity": "SystemAssigned"
             }
         },
         {
             "type": "Microsoft.Web/sites/virtualNetworkConnections",
             "apiVersion": "2023-01-01",
-            "name": "[concat(parameters('sites_lab3cc_name'), '/c925aa56-7754-48bf-84fb-f8e7eab6f82f_', parameters('sites_lab3cc_name'), 'AppSubnet')]",
+            "name": "[concat(parameters('sites_lab5cc_name'), '/c925aa56-7754-48bf-84fb-f8e7eab6f82f_', parameters('sites_lab5cc_name'), 'AppSubnet')]",
             "location": "Poland Central",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/sites', parameters('sites_lab3cc_name'))]",
-                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_lab3ccVnet_name'), 'lab3ccAppSubnet')]"
+                "[resourceId('Microsoft.Web/sites', parameters('sites_lab5cc_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_lab5ccVnet_name'), 'lab5ccAppSubnet')]"
             ],
             "properties": {
-                "vnetResourceId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_lab3ccVnet_name'), 'lab3ccAppSubnet')]",
+                "vnetResourceId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_lab5ccVnet_name'), 'lab5ccAppSubnet')]",
                 "isSwift": true
             }
         }
