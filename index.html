@@ -7,13 +7,26 @@
 </head>
 
 <body>
+    <h1>Lab1</h1>
     <h2>Upload Image</h2>
     <form id="uploadForm" enctype="multipart/form-data" action="/api/upload" method="post">
         <input type="file" id="imageInput" name="image" required>
         <input type="text" id="captionInput" name="caption" placeholder="Enter caption">
         <button type="submit">Upload Image</button>
     </form>
-    <script>
+
+    <h1>Lab2</h1>
+    <button id="createQueue">Створити чергу</button>
+    <button id="addMessages">Додати повідомлення</button>
+    <button id="peekMessages">Переглянути повідомлення</button>
+    <button id="receiveMessages">Отримати повідомлення</button>
+    <div id="output"></div>
+    <button id="addMessagesb">Додати повідомлення</button>
+    <button id="receiveMessagesb">Отримати повідомлення</button>
+    <div id="output2"></div>
+
+
+    <script type="module">
         document.getElementById('uploadForm').addEventListener('submit', function (event) {
             event.preventDefault();
 
@@ -46,6 +59,35 @@
                 }
             };
         });
+        document.getElementById("createQueue").onclick = () => makeRequest('/create-queue');
+        document.getElementById("addMessages").onclick = () => makeRequest('/add-messages');
+        document.getElementById("peekMessages").onclick = () => makeRequest('/peek-messages');
+        document.getElementById("receiveMessages").onclick = () => makeRequest('/receive-messages');
+        document.getElementById("addMessagesb").onclick = () => makeRequestb('/add-messagesb');
+        document.getElementById("receiveMessagesb").onclick = () => makeRequestb('/receive-messagesb');
+
+        async function makeRequest(url) {
+            const outputElement = document.getElementById("output");
+            try {
+                const response = await fetch(url);
+                const text = await response.text();
+                outputElement.innerHTML += text + "<br>";
+            } catch (error) {
+                outputElement.innerHTML += "Error making request: " + error.message + "<br>";
+            }
+        }
+
+        async function makeRequestb(url) {
+            const outputElement = document.getElementById("output2");
+            try {
+                const response = await fetch(url);
+                const text = await response.text();
+                outputElement.innerHTML += text + "<br>";
+            } catch (error) {
+                outputElement.innerHTML += "Error making request: " + error.message + "<br>";
+            }
+        }
+
 
     </script>
 

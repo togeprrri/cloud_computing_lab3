@@ -3,9 +3,13 @@
     "start": "node app.mjs"
   },
   "dependencies": {
+    "@azure/identity": "^4.0.1",
+    "@azure/service-bus": "^7.9.4",
     "@azure/storage-blob": "^12.17.0",
+    "@azure/storage-queue": "^12.16.0",
     "dotenv": "^16.4.5",
     "formidable": "^3.5.1",
-    "mongodb": "^6.5.0"
+    "mongodb": "^6.5.0",
+    "uuid": "^9.0.1"
   }
 }
