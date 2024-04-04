@@ -27,12 +27,12 @@ import { ServiceBusClient } from "@azure/service-bus";
 import { DefaultAzureCredential } from '@azure/identity';
 
 // // Create a unique name for the queue
-const queueName = "quickstartlab3iraivanishak"
+const queueName = "quickstartlab3volodymyrivasiuk"
 
 // // Instantiate a QueueClient which will be used to create and interact with a queue
 const queueClient = new QueueClient(`https://${accountName}.queue.core.windows.net/${queueName}`, new DefaultAzureCredential());
 
-const fullyQualifiedNamespace = "cclab4.servicebus.windows.net";
+const fullyQualifiedNamespace = "lab4-Ivasiuk.servicebus.windows.net";
 const credential = new DefaultAzureCredential();
 const serviceBusClient = new ServiceBusClient(fullyQualifiedNamespace, credential);
 const sender = serviceBusClient.createSender(queueName);

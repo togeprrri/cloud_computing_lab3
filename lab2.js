@@ -7,7 +7,7 @@ const accountName = "lab3storageaccount1";
 document.addEventListener("DOMContentLoaded", function() {
     console.log("got there")
     const outputElement = document.getElementById("output");
-    const queueName = "quickstartlab3iraivanishak";
+    const queueName = "quickstartlab3volodymyrivasiuk";
     const queueClient = new QueueClient(`https://${accountName}.queue.core.windows.net/${queueName}`, new DefaultAzureCredential());
 
     async function createQueue() {

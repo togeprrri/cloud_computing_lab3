@@ -7,23 +7,33 @@
 </head>
 
 <body>
-    <h1>Lab1</h1>
-    <h2>Upload Image</h2>
-    <form id="uploadForm" enctype="multipart/form-data" action="/api/upload" method="post">
-        <input type="file" id="imageInput" name="image" required>
-        <input type="text" id="captionInput" name="caption" placeholder="Enter caption">
-        <button type="submit">Upload Image</button>
-    </form>
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Lab1</h1>
+            <h2>Upload Image</h2>
+            <form id="uploadForm" enctype="multipart/form-data" action="/api/upload" method="post" class="mb-3">
+                <div class="form-group">
+                    <input type="file" id="imageInput" name="image" required class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="captionInput" name="caption" placeholder="Enter caption" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Upload Image</button>
+            </form>
+        </div>
 
-    <h1>Lab2</h1>
-    <button id="createQueue">Створити чергу</button>
-    <button id="addMessages">Додати повідомлення</button>
-    <button id="peekMessages">Переглянути повідомлення</button>
-    <button id="receiveMessages">Отримати повідомлення</button>
-    <div id="output"></div>
-    <button id="addMessagesb">Додати повідомлення</button>
-    <button id="receiveMessagesb">Отримати повідомлення</button>
-    <div id="output2"></div>
+        <div class="col-md-6">
+            <h1>Lab2</h1>
+            <button id="createQueue" class="btn btn-primary mb-1">Створити чергу</button>
+            <button id="addMessages" class="btn btn-primary mb-1">Додати повідомлення</button>
+            <button id="peekMessages" class="btn btn-primary mb-1">Переглянути повідомлення</button>
+            <button id="receiveMessages" class="btn btn-primary mb-1">Отримати повідомлення</button>
+            <div id="output" class="border p-2 mb-3"></div>
+            <button id="addMessagesb" class="btn btn-primary mb-1">Додати повідомлення</button>
+            <button id="receiveMessagesb" class="btn btn-primary mb-1">Отримати повідомлення</button>
+            <div id="output2" class="border p-2 mb-3"></div>
+        </div>
+    </div>
 
 
     <script type="module">
@@ -40,7 +50,7 @@
 
             // Prepare the XMLHttpRequest
             const xhr = new XMLHttpRequest();
-            xhr.open("POST", "https://lab3cc.azurewebsites.net/api/upload", true);
+            xhr.open("POST", "https://lab3-4-Ivasiuk.azurewebsites.net/api/upload", true);
 
             // Set the request headers
             xhr.setRequestHeader("Content-Type", "image/png");
